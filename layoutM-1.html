@@ -36,17 +36,19 @@
         background-color: #e3e3e3;
         }
 
-        /*  nav  */
-        .nav {}
-        .nav > ul {display: flex; justify-content: right; margin-top: 30px;}
-        .nav > ul > li {position: relative;}
-        .nav > ul > li > a {display: inline-block; padding: 10px 50px; background-color: #b0b0b0;}
-        .nav > ul > li > a:hover {background-color: #696969;}
-        .nav > ul > li > ul {display: none; position: absolute; left: 0; top: 38px; width: 100%; text-align: center; background-color: #c7c7c7;}
-        .nav > ul > li > ul > li {}
-        .nav > ul > li > ul > li > a {width: 100%; box-sizing: border-box; padding: 10px; display: inline-block; background-color: #c1c1c1;}
-        .nav > ul > li > ul > li > a:hover {background-color: #8f8f8f;}
+    /*  nav  */
+    .nav {}
+    .nav > ul {display: flex; justify-content: right; margin-top: 30px;}
+    .nav > ul > li {position: relative;}
+    .nav > ul > li > a {display: inline-block; padding: 10px 50px; background-color: #b0b0b0;}
+    .nav > ul > li > a:hover {background-color: #696969;}
+    .nav > ul > li > ul {display: none; position: absolute; left: 0; top: 38px; width: 100%; text-align: center; background-color: #c7c7c7;}
+    .nav > ul > li > ul > li {}
+    .nav > ul > li > ul > li > a {width: 100%; box-sizing: border-box; padding: 10px; display: inline-block; background-color: #c1c1c1;}
+    .nav > ul > li > ul > li > a:hover {background-color: #8f8f8f;}
 
+    /* 자바스크립트 용 CSS -> 자바스크립트로 하면 display:block를 사용할 수 없다 */
+    .nav > ul > li > ul {display: block; height: 0px; overflow: hidden; transition:  all 600ms;}
     #slider {
         width: 100%;
         height: 300px;
@@ -157,15 +159,31 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script>
-        $(function(){
-            // 메뉴 오버했을 때 자식 메뉴를 보여줘라
-            $(".nav > ul > li").mouseover(function(){
-                $(this).find(".subMenu").stop().slideDown()
+        // $(function(){
+        //     // 메뉴 오버했을 때 자식 메뉴를 보여줘라
+        //     $(".nav > ul > li").mouseover(function(){
+        //         $(this).find(".subMenu").stop().slideDown()
+        //     })
+        //     $(".nav > ul > li").mouseout(function(){
+        //         $(this).find(".subMenu").stop().slideUp()
+        //     })
+        // });
+
+        window.onload = function(){
+            let navList = document.querySelectorAll(".nav > ul > li");
+
+            navList.forEach(function(navItem){
+                navItem.addEventListener("mouseover", function(){
+                    this.querySelector(".subMenu").style.height = "155px";
+                })
             })
-            $(".nav > ul > li").mouseout(function(){
-                $(this).find(".subMenu").stop().slideUp()
+
+            navList.forEach(function(navItem){
+                navItem.addEventListener("mouseout", function(){
+                    this.querySelector(".subMenu").style.height = "0px";
+                })
             })
-        });
+        }
     </script>
 </body>
 </html>
